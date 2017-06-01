@@ -20,7 +20,7 @@ def refreshCond():
         od=st.output_postproc(st.stratasys_out_proc(st.printer_get_data(cf.printer_ip)))
         print("Perfomed Refresh")
         lastref = (time.monotonic() + 10.0)
-        
+
 #dict_keys(['machineStatus(cassette)', 'machineStatus(queue)', 'machineStatus(previousJob)', 'machineStatus(general)', 'Transferred', 'machineStatus(mariner)', 'machineStatus(currentJob)'])
 @app.route("/v1/uprint/queue")
 def queue():
@@ -69,4 +69,3 @@ def sanitize(ind):
 if( __name__ == "__main__"):
     lastref = 0
     app.run(host='0.0.0.0',port=cf.app_port,debug=False)
-

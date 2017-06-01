@@ -1,5 +1,5 @@
 #Web server listening port
-app_port = 8080
+app_port = 3000
 
 #3D printer IP address
-printer_ip = '192.168.0.3'
+printer_ip = '192.168.237.22'

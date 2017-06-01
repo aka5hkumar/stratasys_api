@@ -20,7 +20,7 @@ def printer_get_data(h,p=53742):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(4.0)
         try:
-            s.connect((h, p))  
+            s.connect((h, p))
             make_request(s,b'GetFile')
             make_request(s,b'status.sts')
             make_request(s,b'NA')
@@ -77,19 +77,14 @@ def stratasys_out_proc(stra):
         out_dict['machineStatus(queue)'] = list(filter(lambda x: len(x.keys()) != 0, out_dict['machineStatus(queue)']))
         return out_dict
 def output_postproc(indata):
-     name_map = {'paia' : 'mariner', 'lffs' : 'lffs', 'sst1230' : 'mariner', 'solo' : 'solo'}
-     name=name_map[indata['machineStatus(general)']['modelerType']]
-     nameKey="machineStatus("+name+")"
-     indata['machineStatus(extended)'] = indata[nameKey]
-     del indata[nameKey]
-     if indata['machineStatus(general)']['modelerType'] == 'lffs':
-        indata['machineStatus(extended)']['machineName'] = "Fortus"
-     elif indata['machineStatus(general)']['modelerType'] == 'paia':
-        indata['machineStatus(extended)']['machineName'] = "uPrint"
-     elif indata['machineStatus(general)']['modelerType'] == 'mariner':
-        indata['machineStatus(extended)']['machineName'] = "Dimension"
-     elif indata['machineStatus(general)']['modelerType'] == 'solo':
+     name=indata['machineStatus(general)']['modelerType']
+     if name == 'kapaa':
+        indata['machineStatus(general)']['machineName'] = "Fortus"
+     elif name == 'lanai':
+        indata['machineStatus(general)']['machineName'] =  "Dimension Elite"
+     elif name == 'solo':
         indata['machineStatus(extended)']['machineName'] = "Mojo"
+
      else:
         indata['machineStatus(extended)']['machineName'] = "Other"
      return indata
